@@ -9,12 +9,12 @@ import ErrorBoundary from '@/components/common/ErrorBoundary'
 const leftVariant = {
     initial: { opacity: 0, x: -50 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
 }
 const rightVariant = {
     initial: { opacity: 0, x: 50 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
 }
 const stagger = {
     animate: { transition: { staggerChildren: 0.08, delayChildren: 0.35 } },
@@ -24,7 +24,7 @@ const item = {
     animate: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.4, ease: 'easeOut' },
+        transition: { duration: 0.4, ease: 'easeOut' as const },
     },
 }
 

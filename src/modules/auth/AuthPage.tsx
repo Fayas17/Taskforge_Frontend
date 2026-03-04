@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom'
 const leftVariant = {
     initial: { opacity: 0, x: -50 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
 }
 const rightVariant = {
     initial: { opacity: 0, x: 50 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
 }
 
 // stagger = each child fades in 0.1s after the previous one
@@ -23,7 +23,7 @@ const item = {
     animate: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.45, ease: 'easeOut' },
+        transition: { duration: 0.45, ease: 'easeOut' as const },
     },
 }
 
@@ -54,11 +54,11 @@ export default function AuthPage() {
 
     return (
         /*
-      The outer div is the full screen container.
-      display:flex makes children sit side by side (left & right).
-      height:100vh = exactly the viewport height — no scrolling.
-      overflow:hidden = clips anything that spills out.
-    */
+  The outer div is the full screen container.
+  display:flex makes children sit side by side (left & right).
+  height:100vh = exactly the viewport height — no scrolling.
+  overflow:hidden = clips anything that spills out.
+*/
         <div
             style={{
                 display: 'flex',
