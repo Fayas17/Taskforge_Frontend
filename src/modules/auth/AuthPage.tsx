@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { login } from './auth.service'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
@@ -41,12 +42,19 @@ export default function AuthPage() {
             setError('Please fill in both fields.')
             return
         }
+        setLoading(true)
         try {
-            setLoading(true)
-            await new Promise((r) => setTimeout(r, 1000)) // TODO: replace with real login API call
-            alert('Logged in! (wire up your API here)')
-        } catch {
-            setError('Login failed. Please try again.')
+            const data = await login({ email, password })
+
+            // Save tokens
+            localStorage.setItem('access', data.access_token)
+            localStorage.setItem('refresh', data.refresh_token)
+
+            // Redirect
+        } catch (err: unknown) {
+            setError(
+                err instanceof Error ? err.message : 'Something went wrong.',
+            )
         } finally {
             setLoading(false)
         }
