@@ -57,10 +57,6 @@ export default function RegisterPage() {
             setError('Passwords do not match.')
             return
         }
-        if (form.password.length < 6) {
-            setError('Password must be at least 6 characters.')
-            return
-        }
         try {
             setLoading(true)
             await register(form) // calls auth.service.ts → your Django backend
