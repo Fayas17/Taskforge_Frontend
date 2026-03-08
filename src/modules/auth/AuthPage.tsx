@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { login } from './auth.service'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // ─── Animation variants ────────────────────────────────────────
 const leftVariant = {
@@ -29,6 +29,8 @@ const item = {
 }
 
 export default function AuthPage() {
+    const navigate = useNavigate()
+
     // useState — holds values that change over time and trigger re-renders
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -46,11 +48,13 @@ export default function AuthPage() {
         try {
             const data = await login({ email, password })
 
-            // Save tokens
-            localStorage.setItem('access', data.access_token)
-            localStorage.setItem('refresh', data.refresh_token)
+            // A 200 HTTP response establishes the security cookies; just set frontend state
+            if (data) {
+                localStorage.setItem('isAuthenticated', 'true')
+            }
 
             // Redirect
+            navigate('/dashboard')
         } catch (err: unknown) {
             setError(
                 err instanceof Error ? err.message : 'Something went wrong.',
