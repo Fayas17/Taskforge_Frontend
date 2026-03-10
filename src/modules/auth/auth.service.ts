@@ -6,10 +6,10 @@ export async function register(data: RegisterPayload) {
         const res = await api.post('auth/register/', data)
         return res.data
     } catch (error: unknown) {
-        throw new Error(
-            (error as { response?: { data?: { detail?: string } } }).response
-                ?.data?.detail || 'Registration failed',
-        )
+        if (error instanceof Error) {
+            throw new Error(error.message || 'Registration failed')
+        }
+        throw new Error('Registration failed')
     }
 }
 
@@ -18,9 +18,9 @@ export async function login(data: LoginPayload) {
         const res = await api.post<LoginResponse>('auth/login/', data)
         return res.data
     } catch (error: unknown) {
-        throw new Error(
-            (error as { response?: { data?: { detail?: string } } }).response
-                ?.data?.detail || 'Login failed',
-        )
+        if (error instanceof Error) {
+            throw new Error(error.message || 'Login failed')
+        }
+        throw new Error('Login failed')
     }
 }

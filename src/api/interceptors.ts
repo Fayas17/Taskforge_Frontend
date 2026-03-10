@@ -25,11 +25,12 @@ api.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config
 
-        // If error is 401 Unauthorized, and it's NOT the refresh endpoint itself
+        // If error is 401 Unauthorized, and it's NOT the refresh endpoint itself or login endpoint
         if (
             error.response?.status === 401 &&
             !originalRequest._retry &&
-            !originalRequest.url?.includes('auth/refresh')
+            !originalRequest.url?.includes('auth/refresh') &&
+            !originalRequest.url?.includes('auth/login')
         ) {
             if (isRefreshing) {
                 // If a refresh is already active, queue this failed request and wait
@@ -81,6 +82,7 @@ api.interceptors.response.use(
 
         // Return a cleaner error message if available
         const message =
+            error.response?.data?.detail ||
             error.response?.data?.message ||
             error.message ||
             'Something went wrong'
