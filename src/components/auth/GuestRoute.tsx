@@ -1,4 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom'
+import { useAuth } from '@/context/auth-context'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function GuestRoute({
     children,
@@ -6,11 +9,24 @@ export default function GuestRoute({
     children: React.ReactNode
 }) {
     const location = useLocation()
+    const { isAuthenticated, isLoading } = useAuth()
 
-    // We check a safe UI flag string set by the login page,
-    // because real JWT tokens are now secured in HttpOnly cookies!
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
+    // Splash screen while validating HttpOnly cookie
+    if (isLoading) {
+        return (
+            <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+                <Skeleton
+                    count={1}
+                    width={200}
+                    height={40}
+                    baseColor="#1f2937"
+                    highlightColor="#374151"
+                />
+            </div>
+        )
+    }
 
+    // Now securely uses the validated result
     if (isAuthenticated) {
         // Sends logged-in users away from auth pages natively!
         return <Navigate to="/dashboard" state={{ from: location }} replace />

@@ -28,8 +28,11 @@ const item = {
     },
 }
 
+import { useAuth } from '@/context/auth-context'
+
 export default function AuthPage() {
     const navigate = useNavigate()
+    const { setIsAuthenticated } = useAuth()
 
     // useState — holds values that change over time and trigger re-renders
     const [email, setEmail] = useState('')
@@ -51,6 +54,7 @@ export default function AuthPage() {
             // A 200 HTTP response establishes the security cookies; just set frontend state
             if (data) {
                 localStorage.setItem('isAuthenticated', 'true')
+                setIsAuthenticated(true)
             }
 
             // Redirect
@@ -285,6 +289,9 @@ export default function AuthPage() {
                             id="login-google"
                             type="button"
                             className="auth-btn-google"
+                            onClick={() => {
+                                window.location.href = `${import.meta.env.VITE_API_BASE_URL}auth/google/login/`
+                            }}
                         >
                             {/* Google "G" logo as inline SVG — no image file needed */}
                             <svg

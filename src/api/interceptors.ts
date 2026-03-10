@@ -71,8 +71,10 @@ api.interceptors.response.use(
                 // Clear the frontend's authentication UI flag
                 localStorage.removeItem('isAuthenticated')
 
-                // Bounce the user to the login screen
-                window.location.href = '/'
+                // Dispatch event so AuthContext immediately clears user state
+                // This lets React (GuestRoute/ProtectedRoute) handle redirects cleanly without a hard page reload!
+                window.dispatchEvent(new Event('unauthorized'))
+
                 return Promise.reject(err)
             } finally {
                 // Open up the gate for future 401 retries
