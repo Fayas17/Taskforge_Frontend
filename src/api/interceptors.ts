@@ -83,11 +83,41 @@ api.interceptors.response.use(
         }
 
         // Return a cleaner error message if available
-        const message =
-            error.response?.data?.detail ||
-            error.response?.data?.message ||
-            error.message ||
-            'Something went wrong'
+        let message = error.message || 'Something went wrong'
+
+        if (error.response?.data) {
+            const data = error.response.data
+            if (typeof data === 'string') {
+                message = data
+            } else if (data.detail) {
+                message = data.detail
+            } else if (data.message) {
+                message = data.message
+            } else if (
+                data.non_field_errors &&
+                Array.isArray(data.non_field_errors)
+            ) {
+                message = data.non_field_errors[0]
+            } else if (data.error && typeof data.error === 'string') {
+                message = data.error
+            } else if (
+                typeof data === 'object' &&
+                Object.keys(data).length > 0
+            ) {
+                // Fallback to the first array or string property in the object (common for Django field errors)
+                const firstKey = Object.keys(data)[0]
+                const firstVal = data[firstKey]
+                if (
+                    Array.isArray(firstVal) &&
+                    typeof firstVal[0] === 'string'
+                ) {
+                    message = firstVal[0]
+                } else if (typeof firstVal === 'string') {
+                    message = firstVal
+                }
+            }
+        }
+
         return Promise.reject(new Error(message))
     },
 )
