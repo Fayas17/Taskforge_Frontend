@@ -1,0 +1,133 @@
+name: CI
+
+on:
+    push:
+        branches: ['**']
+    pull_request:
+        branches: [master]
+
+# Cancel stale runs when a new commit lands on the same branch
+concurrency:
+    group: '${{ github.workflow }}/${{ github.ref }}'
+    cancel-in-progress: true
+
+jobs:
+    lint:
+        name: Lint & Format
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+                  cache: 'npm'
+
+            - run: npm ci
+
+            - name: Check lint
+              run: npm run lint
+
+            - name: Check formatting
+              run: npm run check-format
+
+    typecheck:
+        name: TypeScript
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+                  cache: 'npm'
+
+            - run: npm ci
+
+            - name: Type check
+              run: npx tsc --noEmit
+
+    security:
+        name: Dependency Audit
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+                  cache: 'npm'
+
+            - run: npm ci
+
+            # Only flags high and critical severity vulnerabilities.
+            # Moderate issues are tracked separately and fixed in dedicated PRs.
+            - name: Audit
+              run: npm audit --audit-level=high
+
+    test:
+        name: Unit Tests
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+                  cache: 'npm'
+
+            - run: npm ci
+
+            - name: Run tests with coverage
+              run: npm run test -- --coverage --run --passWithNoTests
+
+            - name: Upload coverage report
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: coverage-report
+                  path: coverage/
+                  retention-days: 7
+
+    build:
+        name: Production Build
+        runs-on: ubuntu-latest
+        needs: [lint, typecheck, test, security]
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+                  cache: 'npm'
+
+            - run: npm ci
+
+            - name: Build
+              run: npm run build
+
+            - name: Upload build artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: dist
+                  path: dist/
+                  retention-days: 3
+
+    # Single job for branch protection to target — easier than listing every
+    # individual job in repo settings and updating it whenever jobs change.
+    ci-passed:
+        name: CI Passed
+        runs-on: ubuntu-latest
+        needs: [lint, typecheck, security, test, build]
+        if: always()
+        steps:
+            - name: All green?
+              run: |
+                  results="${{ join(needs.*.result, ' ') }}"
+                  for result in $results; do
+                    if [[ "$result" == "failure" || "$result" == "cancelled" ]]; then
+                      echo "CI failed — check the jobs above."
+                      exit 1
+                    fi
+                  done
+                  echo "All clear."
