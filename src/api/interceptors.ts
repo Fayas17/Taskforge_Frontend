@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { api } from './axios'
 
-// To handle concurrent requests during a token refresh phase
+// Module-level singletons — intentional. These deduplicate concurrent 401 retries:
+// only one refresh call fires at a time; all other failed requests queue here.
 let isRefreshing = false
 let failedQueue: Array<{
     resolve: (value?: unknown) => void
