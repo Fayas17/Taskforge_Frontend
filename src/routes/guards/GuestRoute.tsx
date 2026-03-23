@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from 'react-router-dom'
-import { useAuth } from '@/context/auth-context'
+import { useAuth } from '@/hooks/useAuth'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -11,7 +11,6 @@ export default function GuestRoute({
     const location = useLocation()
     const { isAuthenticated, isLoading } = useAuth()
 
-    // Splash screen while validating HttpOnly cookie
     if (isLoading) {
         return (
             <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
@@ -26,9 +25,7 @@ export default function GuestRoute({
         )
     }
 
-    // Now securely uses the validated result
     if (isAuthenticated) {
-        // Sends logged-in users away from auth pages natively!
         return <Navigate to="/dashboard" state={{ from: location }} replace />
     }
 

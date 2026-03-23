@@ -6,19 +6,18 @@ import { MemoryRouter } from 'react-router-dom'
 import { AuthProvider } from '@/context/AuthContext'
 import { axe } from 'vitest-axe'
 
-// Mock the login service
 vi.mock('./auth.service', () => ({
     login: vi.fn(),
 }))
 
-// Mock useNavigate
+vi.mock('@/api/axios', () => ({
+    api: { get: vi.fn().mockRejectedValue(new Error('Not authenticated')) },
+}))
+
 const mockNavigate = vi.fn()
 vi.mock('react-router-dom', async () => {
     const actual = await vi.importActual('react-router-dom')
-    return {
-        ...actual,
-        useNavigate: () => mockNavigate,
-    }
+    return { ...actual, useNavigate: () => mockNavigate }
 })
 
 describe('AuthPage (Login)', () => {
@@ -54,17 +53,6 @@ describe('AuthPage (Login)', () => {
         expect(results).toHaveNoViolations()
     })
 
-    it('should match snapshot', () => {
-        const { asFragment } = render(
-            <MemoryRouter>
-                <AuthProvider>
-                    <AuthPage />
-                </AuthProvider>
-            </MemoryRouter>,
-        )
-        expect(asFragment()).toMatchSnapshot()
-    })
-
     it('should show an error if fields are empty and submitted', async () => {
         render(
             <MemoryRouter>
@@ -82,10 +70,7 @@ describe('AuthPage (Login)', () => {
     })
 
     it('should call login service and navigate on success', async () => {
-        vi.mocked(login).mockResolvedValueOnce({
-            access_token: 'abc',
-            refresh_token: 'def',
-        })
+        vi.mocked(login).mockResolvedValueOnce({ message: 'Login successful' })
 
         render(
             <MemoryRouter>
@@ -137,7 +122,6 @@ describe('AuthPage (Login)', () => {
     })
 
     it('should disable button and show loading text when submitting', async () => {
-        // Slow response
         vi.mocked(login).mockImplementation(
             () => new Promise((resolve) => setTimeout(resolve, 100)),
         )

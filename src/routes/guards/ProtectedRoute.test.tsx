@@ -1,11 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import ProtectedRoute from './ProtectedRoute'
-import { useAuth } from '@/context/auth-context'
+import { useAuth } from '@/hooks/useAuth'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
-// Mock useAuth
-vi.mock('@/context/auth-context', () => ({
+vi.mock('@/hooks/useAuth', () => ({
     useAuth: vi.fn(),
 }))
 
@@ -31,8 +30,6 @@ describe('ProtectedRoute', () => {
             </MemoryRouter>,
         )
 
-        // react-loading-skeleton doesn't have easy text, but we can check for the skeleton container or similar
-        // Or we just check that the children are NOT rendered
         expect(screen.queryByText('Protected Content')).not.toBeInTheDocument()
     })
 

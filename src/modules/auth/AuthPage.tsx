@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { login } from './auth.service'
 import { motion } from 'framer-motion'
 import { Link, useNavigate } from 'react-router-dom'
+import { login } from './auth.service'
+import { useAuth } from '@/hooks/useAuth'
 
-// ─── Animation variants ────────────────────────────────────────
 const leftVariant = {
     initial: { opacity: 0, x: -50 },
     animate: { opacity: 1, x: 0 },
@@ -14,8 +14,6 @@ const rightVariant = {
     animate: { opacity: 1, x: 0 },
     transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
 }
-
-// stagger = each child fades in 0.1s after the previous one
 const stagger = {
     animate: { transition: { staggerChildren: 0.1, delayChildren: 0.35 } },
 }
@@ -28,8 +26,6 @@ const item = {
     },
 }
 
-import { useAuth } from '@/context/auth-context'
-
 export default function AuthPage() {
     const navigate = useNavigate()
     const { setIsAuthenticated } = useAuth()
@@ -40,7 +36,7 @@ export default function AuthPage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault() // stops browser from refreshing the page
         setError(null)
         if (!email || !password) {

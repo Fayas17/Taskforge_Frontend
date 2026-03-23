@@ -11,8 +11,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const checkAuth = async () => {
         setIsLoading(true)
         try {
-            // Assuming your backend has a /auth/me or similar endpoint to validate the cookie
-            // The axios interceptor will automatically attempt to refresh the token if it's expired!
             const response = await api.get('auth/me/')
             setUser(response.data)
             setIsAuthenticated(true)
@@ -29,7 +27,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         checkAuth()
 
-        // Listen for unauthorized events emitted by the axios interceptor
         const handleUnauthorized = () => {
             setIsAuthenticated(false)
             setUser(null)

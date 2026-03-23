@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import Hero from '@/components/common/hero'
+import Hero from '@/components/common/Hero'
 
 export default function MainLayout() {
     return (

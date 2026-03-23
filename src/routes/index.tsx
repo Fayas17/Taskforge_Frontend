@@ -3,9 +3,9 @@ import AuthPage from '@/modules/auth/AuthPage'
 import RegisterPage from '@/modules/auth/RegisterPage'
 import DashboardLayout from '@/layouts/DashboardLayout'
 import DashboardPage from '@/modules/dashboard/DashboardPage'
-import ProtectedRoute from '@/components/auth/ProtectedRoute'
-import GuestRoute from '@/components/auth/GuestRoute'
-import CatchAllRoute from '@/components/auth/CatchAllRoute'
+import ProtectedRoute from '@/routes/guards/ProtectedRoute'
+import GuestRoute from '@/routes/guards/GuestRoute'
+import CatchAllRoute from '@/routes/guards/CatchAllRoute'
 
 export type LayoutType = 'auth' | 'dashboard' | 'main' | 'none'
 

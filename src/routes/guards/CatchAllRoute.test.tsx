@@ -1,19 +1,19 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import GuestRoute from './GuestRoute'
-import { useAuth } from '@/context/auth-context'
+import CatchAllRoute from './CatchAllRoute'
+import { useAuth } from '@/hooks/useAuth'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
-vi.mock('@/context/auth-context', () => ({
+vi.mock('@/hooks/useAuth', () => ({
     useAuth: vi.fn(),
 }))
 
-describe('GuestRoute', () => {
+describe('CatchAllRoute', () => {
     beforeEach(() => {
         vi.clearAllMocks()
     })
 
-    it('should show loader when loading', () => {
+    it('should show loader when isLoading is true', () => {
         vi.mocked(useAuth).mockReturnValue({
             isAuthenticated: false,
             isLoading: true,
@@ -23,14 +23,15 @@ describe('GuestRoute', () => {
         })
 
         render(
-            <MemoryRouter>
-                <GuestRoute>
-                    <div>Guest Content</div>
-                </GuestRoute>
+            <MemoryRouter initialEntries={['/unknown']}>
+                <Routes>
+                    <Route path="/unknown" element={<CatchAllRoute />} />
+                </Routes>
             </MemoryRouter>,
         )
 
-        expect(screen.queryByText('GuestContent')).not.toBeInTheDocument()
+        expect(screen.queryByText('Dashboard')).not.toBeInTheDocument()
+        expect(screen.queryByText('Home/Login')).not.toBeInTheDocument()
     })
 
     it('should redirect to dashboard if authenticated', () => {
@@ -43,17 +44,10 @@ describe('GuestRoute', () => {
         })
 
         render(
-            <MemoryRouter initialEntries={['/login']}>
+            <MemoryRouter initialEntries={['/unknown']}>
                 <Routes>
                     <Route path="/dashboard" element={<div>Dashboard</div>} />
-                    <Route
-                        path="/login"
-                        element={
-                            <GuestRoute>
-                                <div>Guest Content</div>
-                            </GuestRoute>
-                        }
-                    />
+                    <Route path="/unknown" element={<CatchAllRoute />} />
                 </Routes>
             </MemoryRouter>,
         )
@@ -61,7 +55,7 @@ describe('GuestRoute', () => {
         expect(screen.getByText('Dashboard')).toBeInTheDocument()
     })
 
-    it('should render children if NOT authenticated', () => {
+    it('should redirect to home if NOT authenticated', () => {
         vi.mocked(useAuth).mockReturnValue({
             isAuthenticated: false,
             isLoading: false,
@@ -71,13 +65,14 @@ describe('GuestRoute', () => {
         })
 
         render(
-            <MemoryRouter initialEntries={['/login']}>
-                <GuestRoute>
-                    <div>Guest Content</div>
-                </GuestRoute>
+            <MemoryRouter initialEntries={['/unknown']}>
+                <Routes>
+                    <Route path="/" element={<div>Home/Login</div>} />
+                    <Route path="/unknown" element={<CatchAllRoute />} />
+                </Routes>
             </MemoryRouter>,
         )
 
-        expect(screen.getByText('Guest Content')).toBeInTheDocument()
+        expect(screen.getByText('Home/Login')).toBeInTheDocument()
     })
 })
