@@ -23,7 +23,7 @@ jobs:
                   node-version: '22'
                   cache: 'npm'
 
-            - run: npm ci
+            - run: npm install
 
             - name: Check lint
               run: npm run lint
@@ -42,7 +42,7 @@ jobs:
                   node-version: '22'
                   cache: 'npm'
 
-            - run: npm ci
+            - run: npm install
 
             - name: Type check
               run: npx tsc --noEmit
@@ -58,7 +58,7 @@ jobs:
                   node-version: '22'
                   cache: 'npm'
 
-            - run: npm ci
+            - run: npm install
 
             # Only flags high and critical severity vulnerabilities.
             # Moderate issues are tracked separately and fixed in dedicated PRs.
@@ -76,7 +76,7 @@ jobs:
                   node-version: '22'
                   cache: 'npm'
 
-            - run: npm ci
+            - run: npm install
 
             - name: Run tests with coverage
               run: npm run test -- --coverage --run --passWithNoTests
@@ -101,7 +101,7 @@ jobs:
                   node-version: '22'
                   cache: 'npm'
 
-            - run: npm ci
+            - run: npm install
 
             - name: Build
               run: npm run build
