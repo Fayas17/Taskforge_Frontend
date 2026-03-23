@@ -12,401 +12,415 @@
 */
 html,
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  /* no scrollbars at the root level */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* no scrollbars at the root level */
 }
 
 /* #root is the div React mounts into (see index.html) */
 #root {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* ─── Keyframes ─────────────────────────────────────────────── */
 
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-60px);
-  }
+    from {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(60px);
-  }
+    from {
+        opacity: 0;
+        transform: translateX(60px);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* Gentle float — used on the asterisk logo */
 @keyframes floatY {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
 
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 /* Slow constant spin — optional for logo */
 @keyframes spinSlow {
-  from {
-    transform: rotate(0deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
 
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Pop in from scaled-down */
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-  }
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
 
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* Diagonal lines drift subtly */
 @keyframes driftLines {
-  0% {
-    transform: translateY(0) rotate(-30deg);
-  }
+    0% {
+        transform: translateY(0) rotate(-30deg);
+    }
 
-  100% {
-    transform: translateY(-40px) rotate(-30deg);
-  }
+    100% {
+        transform: translateY(-40px) rotate(-30deg);
+    }
 }
 
 /* ─── Utility Classes ────────────────────────────────────────── */
 .animate-fade-in-up {
-  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-fade-in-down {
-  animation: fadeInDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: fadeInDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: slideInLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-slide-in-right {
-  animation: slideInRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: slideInRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-float {
-  animation: floatY 4s ease-in-out infinite;
+    animation: floatY 4s ease-in-out infinite;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: scaleIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Delay helpers */
 .delay-100 {
-  animation-delay: 0.1s;
+    animation-delay: 0.1s;
 }
 
 .delay-200 {
-  animation-delay: 0.2s;
+    animation-delay: 0.2s;
 }
 
 .delay-300 {
-  animation-delay: 0.3s;
+    animation-delay: 0.3s;
 }
 
 .delay-400 {
-  animation-delay: 0.4s;
+    animation-delay: 0.4s;
 }
 
 .delay-500 {
-  animation-delay: 0.5s;
+    animation-delay: 0.5s;
 }
 
 .delay-700 {
-  animation-delay: 0.7s;
+    animation-delay: 0.7s;
 }
 
 /* ─── Auth Layout ────────────────────────────────────────────── */
 
 /* Left green gradient hero panel */
 .auth-hero-panel {
-  /* Deep forest green → vivid green */
-  background: linear-gradient(140deg, #14532d 0%, #166534 35%, #15803d 70%, #16a34a 100%);
-  position: relative;
-  overflow: hidden;
+    /* Deep forest green → vivid green */
+    background: linear-gradient(
+        140deg,
+        #14532d 0%,
+        #166534 35%,
+        #15803d 70%,
+        #16a34a 100%
+    );
+    position: relative;
+    overflow: hidden;
 }
 
 /* Subtle texture grid */
 .auth-grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 55px 55px;
-  pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 55px 55px;
+    pointer-events: none;
 }
 
 /* Diagonal rectangle outlines (like the image) */
 .auth-diag-lines {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
 }
 
 .auth-diag-rect {
-  position: absolute;
-  border: 1.5px solid rgba(255, 255, 255, 0.10);
-  border-radius: 12px;
-  animation: driftLines 10s ease-in-out infinite alternate;
+    position: absolute;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    animation: driftLines 10s ease-in-out infinite alternate;
 }
 
 .auth-diag-rect-1 {
-  width: 300px;
-  height: 380px;
-  top: 80px;
-  right: -80px;
-  transform: rotate(-28deg);
-  animation-delay: 0s;
+    width: 300px;
+    height: 380px;
+    top: 80px;
+    right: -80px;
+    transform: rotate(-28deg);
+    animation-delay: 0s;
 }
 
 .auth-diag-rect-2 {
-  width: 260px;
-  height: 320px;
-  top: 120px;
-  right: -40px;
-  transform: rotate(-28deg);
-  animation-delay: 1.5s;
-  border-color: rgba(255, 255, 255, 0.07);
+    width: 260px;
+    height: 320px;
+    top: 120px;
+    right: -40px;
+    transform: rotate(-28deg);
+    animation-delay: 1.5s;
+    border-color: rgba(255, 255, 255, 0.07);
 }
 
 .auth-diag-rect-3 {
-  width: 220px;
-  height: 270px;
-  top: 160px;
-  right: 0px;
-  transform: rotate(-28deg);
-  animation-delay: 3s;
-  border-color: rgba(255, 255, 255, 0.05);
+    width: 220px;
+    height: 270px;
+    top: 160px;
+    right: 0px;
+    transform: rotate(-28deg);
+    animation-delay: 3s;
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Asterisk / star logo */
 .auth-star-logo {
-  font-size: 3rem;
-  font-weight: 900;
-  color: white;
-  line-height: 1;
-  display: inline-block;
-  animation: floatY 4s ease-in-out infinite;
-  /* Using the ✳ asterisk rendered as bold text */
-  font-style: normal;
+    font-size: 3rem;
+    font-weight: 900;
+    color: white;
+    line-height: 1;
+    display: inline-block;
+    animation: floatY 4s ease-in-out infinite;
+    /* Using the ✳ asterisk rendered as bold text */
+    font-style: normal;
 }
 
 /* ─── Right Panel ────────────────────────────────────────────── */
 
 /* Off-white background for the right side */
 .auth-right-panel {
-  background: #F7F6F0;
-  /* warm off-white — matches the image */
+    background: #f7f6f0;
+    /* warm off-white — matches the image */
 }
 
 /* Brand name at top of right panel */
 .auth-brand-name {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: #111827;
-  letter-spacing: -0.3px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: -0.3px;
 }
 
 /* ─── Form Elements ──────────────────────────────────────────── */
 
 /* Underline-only input — exactly like the image */
 .auth-input-underline {
-  width: 100%;
-  padding: 0.6rem 0;
-  border: none;
-  border-bottom: 1.5px solid #d1d5db;
-  background: transparent;
-  font-size: 0.95rem;
-  font-family: 'Inter', sans-serif;
-  color: #111827;
-  outline: none;
-  transition: border-color 0.2s;
+    width: 100%;
+    padding: 0.6rem 0;
+    border: none;
+    border-bottom: 1.5px solid #d1d5db;
+    background: transparent;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    color: #111827;
+    outline: none;
+    transition: border-color 0.2s;
 }
 
 .auth-input-underline:focus {
-  border-bottom-color: #15803d;
-  /* green focus line */
+    border-bottom-color: #15803d;
+    /* green focus line */
 }
 
 .auth-input-underline::placeholder {
-  color: #9ca3af;
+    color: #9ca3af;
 }
 
 /* Dark "Login Now" button — matches image */
 .auth-btn-dark {
-  width: 100%;
-  padding: 0.9rem 1rem;
-  background: #111827;
-  /* near-black */
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  letter-spacing: 0.3px;
-  font-family: 'Inter', sans-serif;
-  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: #111827;
+    /* near-black */
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    font-family: 'Inter', sans-serif;
+    transition:
+        background 0.2s,
+        transform 0.15s,
+        box-shadow 0.2s;
 }
 
 .auth-btn-dark:hover {
-  background: #1f2937;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background: #1f2937;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .auth-btn-dark:active {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 .auth-btn-dark:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-  transform: none;
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Google button — white with border */
 .auth-btn-google {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  background: #fff;
-  color: #374151;
-  font-weight: 500;
-  font-size: 0.92rem;
-  border: 1.5px solid #d1d5db;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  font-family: 'Inter', sans-serif;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: #fff;
+    color: #374151;
+    font-weight: 500;
+    font-size: 0.92rem;
+    border: 1.5px solid #d1d5db;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-family: 'Inter', sans-serif;
+    transition:
+        background 0.2s,
+        border-color 0.2s,
+        transform 0.15s;
 }
 
 .auth-btn-google:hover {
-  background: #f9fafb;
-  border-color: #9ca3af;
-  transform: translateY(-1px);
+    background: #f9fafb;
+    border-color: #9ca3af;
+    transform: translateY(-1px);
 }
 
 /* Small green primary button (for Register page) */
 .auth-btn-green {
-  width: 100%;
-  padding: 0.9rem 1rem;
-  background: #15803d;
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: #15803d;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition:
+        background 0.2s,
+        transform 0.15s,
+        box-shadow 0.2s;
 }
 
 .auth-btn-green:hover {
-  background: #166534;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(21, 128, 61, 0.35);
+    background: #166534;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(21, 128, 61, 0.35);
 }
 
 .auth-btn-green:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-  transform: none;
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Error / success toast */
 .auth-error {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #dc2626;
-  border-radius: 6px;
-  padding: 0.6rem 0.9rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  animation: fadeInUp 0.3s ease both;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    border-radius: 6px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    animation: fadeInUp 0.3s ease both;
 }
 
 .auth-success {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  color: #15803d;
-  border-radius: 6px;
-  padding: 0.6rem 0.9rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  animation: fadeInUp 0.3s ease both;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+    border-radius: 6px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    animation: fadeInUp 0.3s ease both;
 }
