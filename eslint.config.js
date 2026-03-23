@@ -9,38 +9,38 @@ import prettierConfig from 'eslint-config-prettier'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+    globalIgnores(['dist']),
 
-  {
-    files: ['**/*.{ts,tsx}'],
+    {
+        files: ['**/*.{ts,tsx}'],
 
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      pluginReact.configs.flat.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-      prettierConfig, // disables conflicting rules
-    ],
+        extends: [
+            js.configs.recommended,
+            ...tseslint.configs.recommended,
+            pluginReact.configs.flat.recommended,
+            reactHooks.configs.flat.recommended,
+            reactRefresh.configs.vite,
+            prettierConfig, // disables conflicting rules
+        ],
 
-    plugins: {
-      prettier: prettierPlugin,
-    },
+        plugins: {
+            prettier: prettierPlugin,
+        },
 
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
+        languageOptions: {
+            ecmaVersion: 2020,
+            globals: globals.browser,
+        },
         settings: {
-      react: {
-        version: 'detect',
-      },
-    },
+            react: {
+                version: 'detect',
+            },
+        },
 
-    rules: {
-      'react/react-in-jsx-scope': 'off',
-      '@typescript-eslint/no-unused-vars': 'warn',
-      'prettier/prettier': 'error',
+        rules: {
+            'react/react-in-jsx-scope': 'off',
+            '@typescript-eslint/no-unused-vars': 'warn',
+            'prettier/prettier': 'error',
+        },
     },
-  },
 ])
