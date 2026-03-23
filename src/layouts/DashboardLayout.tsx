@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
-import { refreshToken, logoutUser } from '@/modules/dashboard/dashboard.service'
+import { logoutUser } from '@/modules/dashboard/dashboard.service'
 
 export default function DashboardLayout() {
     const navigate = useNavigate()
@@ -10,15 +10,6 @@ export default function DashboardLayout() {
     const handleLogout = async () => {
         await logoutUser()
         navigate('/')
-    }
-
-    const testRefresh = async () => {
-        try {
-            await refreshToken()
-            alert('Token refreshed successfully')
-        } catch {
-            alert('Refresh failed')
-        }
     }
 
     return (
@@ -152,22 +143,6 @@ export default function DashboardLayout() {
                         gap: '1rem',
                     }}
                 >
-                    <button
-                        onClick={testRefresh}
-                        style={{
-                            background: '#374151',
-                            color: 'white',
-                            border: '1px solid #4b5563',
-                            padding: '0.5rem 1rem',
-                            borderRadius: '4px',
-                            fontSize: '0.85rem',
-                            cursor: 'pointer',
-                            fontWeight: 600,
-                        }}
-                    >
-                        Demo Refresh
-                    </button>
-
                     <div style={{ position: 'relative' }}>
                         <button
                             onClick={() => setDropdownOpen(!dropdownOpen)}

@@ -18,8 +18,8 @@ export async function logoutUser() {
         // Hit logout endpoint. Backend adds Set-Cookie headers targeting `access`
         // and `refresh` with an expiry date in the past, obliterating them.
         await api.post('auth/logout/')
-    } catch (e) {
-        console.error('Logout failed:', e)
+    } catch {
+        // Logout failure is non-critical — server cookies expire naturally
     } finally {
         // Always scrub frontend authentication status regardless of server response
         localStorage.removeItem('isAuthenticated')
