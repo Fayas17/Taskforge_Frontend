@@ -39,7 +39,9 @@ export default defineConfig([
 
         rules: {
             'react/react-in-jsx-scope': 'off',
-            '@typescript-eslint/no-unused-vars': 'warn',
+            '@typescript-eslint/no-unused-vars': 'error',
+            '@typescript-eslint/no-explicit-any': 'error',
+            'no-console': 'warn',
             'prettier/prettier': 'error',
         },
     },

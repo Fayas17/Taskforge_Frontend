@@ -34,6 +34,17 @@ jobs:
               run: |
                   BRANCH="${{ github.head_ref }}"
                   echo "Branch: $BRANCH"
+
+                  # Branches created before the naming convention was introduced.
+                  # Do not add new entries here — use feat/<description> going forward.
+                  LEGACY_BRANCHES=("authentication")
+                  for legacy in "${LEGACY_BRANCHES[@]}"; do
+                    if [[ "$BRANCH" == "$legacy" ]]; then
+                      echo "Branch '$BRANCH' is a pre-convention legacy branch — skipping name check."
+                      exit 0
+                    fi
+                  done
+
                   if [[ "$BRANCH" =~ ^(feat|fix|chore|refactor|test|docs)/.+ ]]; then
                     echo "Branch name is valid."
                   else
