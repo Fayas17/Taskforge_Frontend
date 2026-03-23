@@ -23,5 +23,31 @@ dist-ssr
 *.sln
 *.sw?
 
-#env
+# Environment
 .env
+.env.local
+.env.*.local
+*.local
+
+# Build
+dist
+dist-ssr
+*.tsbuildinfo
+
+# Coverage / Tests
+coverage/
+*.test.results
+__snapshots__/
+*.txt
+
+# Vite / IDE
+.vite/
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+
+# Antigravity / Agent temp files
+.gemini/
+.antigravity/
+tmp/
