@@ -9,7 +9,7 @@
         "useDefineForClassFields": true,
         "lib": ["ES2022", "DOM", "DOM.Iterable"],
         "module": "ESNext",
-        "types": ["vite/client", "vitest/globals", "vitest-axe"],
+        "types": ["vite/client", "vitest/globals", "vitest-axe/extend-expect"],
         "skipLibCheck": true,
 
         /* Bundler mode */
