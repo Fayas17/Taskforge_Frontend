@@ -8,6 +8,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [user, setUser] = useState<User | null>(null)
 
+    // Verifies the current session by hitting the backend.
+    // localStorage is a UI hint only — it lets route guards skip the loading
+    // flash on page load, but it is not a security boundary. The actual auth
+    // state always comes from this API call, not from localStorage.
     const checkAuth = async () => {
         setIsLoading(true)
         try {
@@ -27,6 +31,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         checkAuth()
 
+        // Dispatched by src/api/interceptors.ts when the refresh token itself
+        // expires or is rejected. Clearing state here lets React's route guards
+        // handle the redirect — no hard page reload needed.
         const handleUnauthorized = () => {
             setIsAuthenticated(false)
             setUser(null)

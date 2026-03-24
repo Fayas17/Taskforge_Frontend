@@ -8,6 +8,10 @@ type State = {
     hasError: boolean
 }
 
+// Catches unhandled React render errors and shows a fallback UI instead of
+// a blank screen. Wrap top-level providers in main.tsx with this.
+// To report to an error monitoring service, add Sentry.captureException()
+// inside componentDidCatch() when that's set up.
 class ErrorBoundary extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
