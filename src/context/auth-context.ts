@@ -11,6 +11,10 @@ export interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
+/**
+ * Hook to access authentication state and actions.
+ * Must be used inside <AuthProvider> — throws if called outside it.
+ */
 export const useAuth = () => {
     const context = useContext(AuthContext)
     if (context === undefined) {
